@@ -1,5 +1,12 @@
-Write-Output 'Custom PowerShell profile in effect!'
-if (([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole] "Administrator"))
-{Write-Output 'Running as Administrator!'}
+$string = 'Ada file java di direktori '
+$directory = Get-ChildItem "C:\Users\damar\OneDrive - UGM 365\File Kuliah\Akademik\Semester 7\MBKM\praxis-academy\" -Filter *.java -Recurse -File -Name| ForEach-Object {
+    [System.IO.Path]::GetDirectoryName($_)
+}
+if (($directory))
+{
+$output = $string + "\" + $directory
+$output.replace("`n"," ")
+}
 else
-{Write-Output 'Running Limited!'}
+{'Tidak ada file java'}
+
