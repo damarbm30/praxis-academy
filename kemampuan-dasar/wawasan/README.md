@@ -4,7 +4,11 @@ Teknologi Informasi (TI) merupakan bentuk penggunaan komputer untuk membuat, mem
 
 TI juga merupakan cabang dari ilmu komputer yang dapat didefinisikan sebagai keseluruhan pembelajaran prosedur, struktur, dan pemrosesan dari berbagai jenis tipe data.
 
-StackExchange
+Perbedaan Informatika dan Ilmu Komputer
+
+Ilmu komputer merupakan ranah studi tentang teori, eksperimen, dan rekayasa yang membentuk dasar desain dan penggunaan komputer.
+
+Informatika merupakan cabang dari rekayasa informasi (information engineering). 
 
 Software Development
 
