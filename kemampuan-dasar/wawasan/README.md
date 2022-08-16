@@ -1,4 +1,4 @@
-Teknologi Informasi
+# Teknologi Informasi
 
 Teknologi Informasi (TI) merupakan bentuk penggunaan komputer untuk membuat, memproses, menyimpan, mengambil, dan menukar berbagai jenis data dan informasi. TI umumnya digunakan di dalam operasi bisnis. Sistem TI umumnya adalah sebuah sistem informasi, sistem komunikasi, dan sistem komputer yang dioperasikan oleh pengguna TI.
 
