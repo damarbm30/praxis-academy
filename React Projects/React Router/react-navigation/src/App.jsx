@@ -1,19 +1,20 @@
 import React from "react";
 import "antd/dist/antd.min.css";
 import { Breadcrumb, Layout } from "antd";
-import Navbar from "./Navbar";
-import Sidebar from "./Sidebar";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import PageContent1 from "./contents/PageContent1";
-import PageContent2 from "./contents/PageContent2";
-import PageContent4 from "./contents/PageContent4";
-import PageContent3 from "./contents/PageContent3";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import PageContent2 from "./components/contents/PageContent2";
+import PageContent4 from "./components/contents/PageContent4";
+import PageContent3 from "./components/contents/PageContent3";
+import Home from "./components/home/Home";
+import Calculator from "./components/calculator";
 
 const { Content, Footer } = Layout;
 
-const Navigation = () => (
+const App = () => (
   <Router>
-    <Layout>
+    <Layout style={{ height: "100vh" }}>
       <Navbar />
       <Content
         style={{
@@ -39,17 +40,16 @@ const Navigation = () => (
           <Sidebar />
           <Content
             style={{
-              padding: "0 24px",
               minHeight: 280,
               backgroundColor: "white",
               marginLeft: "1rem",
-              paddingTop: "1rem",
+              height: "calc(70vh)",
             }}
           >
-            {/* <PageContent1 />
-          <PageContent2 /> */}
             <Routes>
-              <Route path="/content1" element={<PageContent1 />} />
+              <Route path="/" element={<Navigate replace to="/home" />} />
+              <Route path="/home" element={<Home />} />
+              <Route path="/calculator" element={<Calculator />} />
               <Route path="/content2" element={<PageContent2 />} />
               <Route path="/content3" element={<PageContent3 />} />
               <Route path="/content4" element={<PageContent4 />} />
@@ -68,4 +68,4 @@ const Navigation = () => (
   </Router>
 );
 
-export default Navigation;
+export default App;
