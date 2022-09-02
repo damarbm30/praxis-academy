@@ -9,8 +9,8 @@ export default function App() {
         Focused, hard work is the real key to success. Keep your eyes on the goal, and just keep taking the next step
         towards completing it
       </TextToggle> */}
-      {/* <AddItem /> */}
-      <Count />
+      <AddItem />
+      {/* <Count /> */}
     </div>
   );
 }
