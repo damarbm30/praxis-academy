@@ -1,0 +1,21 @@
+* {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.filter {
+  font-family: sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 20px;
+  height: 100vh;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+}
+
+.filter-list__item {
+  display: flex;
+  margin-top: 4px;
+}
