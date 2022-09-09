@@ -30,10 +30,7 @@ const Slider = () => {
     <div className="container-slider">
       {dataSlider.map((item, index) => (
         <li className={slideIndex === index + 1 ? "slide active" : "slide"} key={item.id}>
-          <p>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ut ad odio voluptates doloribus, soluta a sit
-            corporis qui aliquid minima!
-          </p>
+          <p>{item.title}</p>
           <img src={`/images/img${index + 1}.jpg`} />
         </li>
       ))}

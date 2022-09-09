@@ -1,11 +1,10 @@
 import React from "react";
-import FunctionContext from "./components/useContext/FunctionContext";
-import { TodoApp } from "./components/useReducer/TodoApp";
+import PreviousValue from "./components/useRef/PreviousValue";
 
 export default function App() {
   return (
     <>
-      <TodoApp />
+      <PreviousValue />
     </>
   );
 }

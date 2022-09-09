@@ -13,8 +13,8 @@ function App() {
     <>
       {/* <FilterArray /> */}
       {/* <FetchData /> */}
-      {/* <Slider /> */}
-      <ReactChildren />
+      <Slider />
+      {/* <ReactChildren /> */}
     </>
   );
 }
