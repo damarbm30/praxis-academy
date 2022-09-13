@@ -10,7 +10,14 @@ const Navbar = () => {
   }));
 
   return (
-    <Header className="header">
+    <Header
+      className="header"
+      style={{
+        position: "fixed",
+        zIndex: 1,
+        width: "100%",
+      }}
+    >
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]} items={items1} />
     </Header>
   );

@@ -14,16 +14,20 @@ const { Content, Footer } = Layout;
 
 const App = () => (
   <Router>
-    <Layout style={{ height: "100vh" }}>
+    <Layout
+      style={{
+        height: "100vh",
+      }}
+    >
       <Navbar />
       <Content
         style={{
-          padding: "0 50px",
+          padding: "0px 50px",
         }}
       >
         <Breadcrumb
           style={{
-            margin: "16px 0",
+            margin: "80px 0 16px 0",
           }}
         >
           <Breadcrumb.Item>Home</Breadcrumb.Item>
@@ -43,7 +47,8 @@ const App = () => (
               minHeight: 280,
               backgroundColor: "white",
               marginLeft: "1rem",
-              height: "calc(70vh)",
+              height: "70vh",
+              overflow: "scroll",
             }}
           >
             <Routes>
