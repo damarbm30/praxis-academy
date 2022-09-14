@@ -18,6 +18,7 @@ const Navbar = () => {
         width: "100%",
       }}
     >
+      <div className="logo" />
       <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]} items={items1} />
     </Header>
   );

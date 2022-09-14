@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./calculator.css";
 
 const Calculator = () => {
@@ -44,6 +44,7 @@ const Calculator = () => {
   };
 
   const handleResult = () => {
+    // eslint-disable-next-line
     setItem(eval(item).toString());
     setResult(true);
   };
