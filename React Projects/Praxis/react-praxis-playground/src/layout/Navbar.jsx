@@ -14,7 +14,7 @@ const Navbar = () => {
       className="header"
       style={{
         position: "fixed",
-        zIndex: 1,
+        zIndex: 99,
         width: "100%",
       }}
     >
