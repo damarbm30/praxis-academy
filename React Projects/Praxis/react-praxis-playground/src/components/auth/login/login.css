@@ -1,0 +1,22 @@
+.login-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+}
+
+.login-wrapper {
+  position: absolute;
+  padding: 2em;
+  border-radius: 12px;
+  box-shadow: 2px 2px 4px 1px #888888;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.button-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2em;
+}

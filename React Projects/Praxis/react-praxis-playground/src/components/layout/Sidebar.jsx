@@ -7,7 +7,7 @@ const menuItems = [
     key: "side1",
     label: "Navigation one",
     children: [
-      { label: <Link to="/">Home</Link>, key: "home" },
+      { label: <Link to="/home">Home</Link>, key: "home" },
       { label: <Link to="/calculator">Calculator</Link>, key: "calculator" },
     ],
   },
