@@ -14,7 +14,7 @@
   transform: translate(-50%, -50%);
 }
 
-.button-wrapper {
+.login-button-wrapper {
   display: flex;
   justify-content: center;
   flex-direction: column;
