@@ -8,8 +8,8 @@ import PageContent3 from "../contents/PageContent3";
 import Calculator from "../contents/calculator";
 import ProtectedRoutes from "./ProtectedRoutes";
 import PublicRoutes from "./PublicRoutes";
-import Login from "../auth/login/Login";
-import Register from "../auth/register/Register";
+import Login from "../auth/login";
+import Register from "../auth/register";
 
 const MainRoutes = () => (
   <Routes>

@@ -1,16 +1,26 @@
-.register-container {
-  margin: 0 auto;
-  width: 30%;
-  padding: 2em 0;
+.register__container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
 }
 
-.register-wrapper {
+.register__form {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   box-shadow: 2px 2px 4px 1px #888888;
-  padding: 1em 1em;
+  padding: 1em;
   border-radius: 12px;
 }
 
-.register-button-wrapper {
+.register__button__wrapper {
+}
+
+.register__button {
   display: flex;
   justify-content: center;
   flex-direction: column;
