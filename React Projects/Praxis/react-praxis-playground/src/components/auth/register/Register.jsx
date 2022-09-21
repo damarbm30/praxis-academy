@@ -1,52 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { userRegistration } from "../../../_services";
 import "./register.css";
+import RegisterForm from "./RegisterForm";
+
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,}$/;
+const EMAIL_REGEX = /^[a-z0-9]+@[a-z]+\.[a-z]{3}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*!@#$%]).{8,24}$/;
 
 const Register = () => {
-  const navigate = useNavigate();
-  const [userCredentials, setUserCredentials] = useState({ userName: "", email: "", password: "" });
+  const [userCredentials, setUserCredentials] = useState({ userName: "", email: "", password: "", matchPassword: "" });
+  const [valid, setValid] = useState({ userName: false, email: false, password: false, matchPassword: false });
+
+  useEffect(() => {
+    const result = USER_REGEX.test(userCredentials.userName);
+    setValid({ ...valid, userName: result });
+    // eslint-disable-next-line
+  }, [userCredentials.userName]);
+
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(userCredentials.email);
+    setValid({ ...valid, email: result });
+    // eslint-disable-next-line
+  }, [userCredentials.email]);
+
+  useEffect(() => {
+    const result = PWD_REGEX.test(userCredentials.password);
+    setValid({ ...valid, password: result });
+    // eslint-disable-next-line
+  }, [userCredentials.password]);
+
+  useEffect(() => {
+    let match = false;
+    if (userCredentials.matchPassword === userCredentials.password && userCredentials.matchPassword !== "") {
+      match = true;
+    }
+    setValid({ ...valid, matchPassword: match });
+    // eslint-disable-next-line
+  }, [userCredentials.matchPassword]);
 
   return (
     <section className="register__container">
-      <form className="register__form" onSubmit={(e) => e.preventDefault()}>
-        <label htmlFor="username">Username</label>
-        <input
-          size={20}
-          type="text"
-          value={userCredentials.userName}
-          onChange={(e) => setUserCredentials({ ...userCredentials, userName: e.target.value })}
-        />
-        <label htmlFor="email">Email</label>
-        <input
-          size={20}
-          type="text"
-          value={userCredentials.email}
-          onChange={(e) => setUserCredentials({ ...userCredentials, email: e.target.value })}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          size={20}
-          type="text"
-          value={userCredentials.password}
-          onChange={(e) => setUserCredentials({ ...userCredentials, password: e.target.value })}
-        />
-        <label htmlFor="confirm-password">Confirm Password</label>
-        <input size={20} type="text" />
-        <div className="register__button__wrapper">
-          <button
-            type="submit"
-            className="register__button"
-            onClick={() => {
-              userRegistration(userCredentials, navigate);
-            }}
-          >
-            Register
-          </button>
-          <Link to={"/login"}>Already have an account?</Link>
-        </div>
-      </form>
+      <RegisterForm
+        userCredentials={userCredentials}
+        setUserCredentials={setUserCredentials}
+        valid={valid}
+        setValid={setValid}
+        userRegistration={userRegistration}
+      />
     </section>
   );
 };
