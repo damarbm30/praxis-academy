@@ -6,8 +6,8 @@ const RegisterAlert = ({ valid }) => {
       </p>
       <p className={!valid.email ? "register__alert" : "hide"}>Not a valid email address</p>
       <p className={!valid.password ? "register__alert" : "hide"}>
-        Password must include uppercase letters, lowercase letters, a number and a special character. <br /> Allowed
-        special characters: ! @ # $ * %
+        Password must include uppercase letters, lowercase letters, a number and a special character. Allowed special
+        characters: ! @ # $ * %
       </p>
       <p className={!valid.matchPassword ? "register__alert" : "hide"}>Password doesn't match</p>
     </>
