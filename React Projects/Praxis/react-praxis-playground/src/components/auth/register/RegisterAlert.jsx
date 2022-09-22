@@ -1,15 +1,35 @@
-const RegisterAlert = ({ valid }) => {
+import { CloseOutlined } from "@ant-design/icons";
+
+const RegisterAlert = ({ isValid, focus }) => {
   return (
     <>
-      <p className={!valid.userName ? "register__alert" : "hide"}>
-        Username must be more than 3 characters and consists only of numbers and letters
-      </p>
-      <p className={!valid.email ? "register__alert" : "hide"}>Not a valid email address</p>
-      <p className={!valid.password ? "register__alert" : "hide"}>
-        Password must include uppercase letters, lowercase letters, a number and a special character. Allowed special
-        characters: ! @ # $ * %
-      </p>
-      <p className={!valid.matchPassword ? "register__alert" : "hide"}>Password doesn't match</p>
+      <div style={{ marginBottom: "1rem" }}>
+        <div className={focus.userName && !isValid.userName ? "register__alert" : "hide"}>
+          <p>
+            <CloseOutlined style={{ color: "red", marginRight: "4px" }} />
+            Username must be more than 3 characters
+          </p>
+        </div>
+        <div className={focus.email && !isValid.email ? "register__alert" : "hide"}>
+          <p>
+            <CloseOutlined style={{ color: "red", marginRight: "4px" }} />
+            Not a valid email address
+          </p>
+        </div>
+        <div className={focus.password && !isValid.password ? "register__alert" : "hide"}>
+          <p>
+            <CloseOutlined style={{ color: "red", marginRight: "4px" }} />
+            Password must include uppercase letters, lowercase letters, a number and a special character. Allowed
+            special characters: ! @ # $ * %
+          </p>
+        </div>
+        <div className={focus.matchPassword && !isValid.matchPassword ? "register__alert" : "hide"}>
+          <p>
+            <CloseOutlined style={{ color: "red", marginRight: "4px" }} />
+            Password doesn't match
+          </p>
+        </div>
+      </div>
     </>
   );
 };

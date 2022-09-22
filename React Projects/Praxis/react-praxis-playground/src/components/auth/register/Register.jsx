@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 import { userRegistration } from "../../../_services";
 import "./register.css";
 import RegisterForm from "./RegisterForm";
@@ -10,23 +11,26 @@ const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*!@#$%]).{8,24}$/;
 
 const Register = () => {
   const [userCredentials, setUserCredentials] = useState({ userName: "", email: "", password: "", matchPassword: "" });
-  const [valid, setValid] = useState({ userName: false, email: false, password: false, matchPassword: false });
+  const [isValid, setIsValid] = useState({ userName: false, email: false, password: false, matchPassword: false });
+  const [focus, setFocus] = useState({ userName: false, email: false, password: false, matchPassword: false });
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSent, setIsSent] = useOutletContext();
 
   useEffect(() => {
     const result = USER_REGEX.test(userCredentials.userName);
-    setValid({ ...valid, userName: result });
+    setIsValid({ ...isValid, userName: result });
     // eslint-disable-next-line
   }, [userCredentials.userName]);
 
   useEffect(() => {
     const result = EMAIL_REGEX.test(userCredentials.email);
-    setValid({ ...valid, email: result });
+    setIsValid({ ...isValid, email: result });
     // eslint-disable-next-line
   }, [userCredentials.email]);
 
   useEffect(() => {
     const result = PWD_REGEX.test(userCredentials.password);
-    setValid({ ...valid, password: result });
+    setIsValid({ ...isValid, password: result });
     // eslint-disable-next-line
   }, [userCredentials.password]);
 
@@ -35,18 +39,24 @@ const Register = () => {
     if (userCredentials.matchPassword === userCredentials.password && userCredentials.matchPassword !== "") {
       match = true;
     }
-    setValid({ ...valid, matchPassword: match });
+    setIsValid({ ...isValid, matchPassword: match });
     // eslint-disable-next-line
   }, [userCredentials.matchPassword]);
 
   return (
     <section className="register__container">
       <RegisterForm
+        userRegistration={userRegistration}
         userCredentials={userCredentials}
         setUserCredentials={setUserCredentials}
-        valid={valid}
-        setValid={setValid}
-        userRegistration={userRegistration}
+        isValid={isValid}
+        setIsValid={setIsValid}
+        focus={focus}
+        setFocus={setFocus}
+        isSent={isSent}
+        setIsSent={setIsSent}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
       />
     </section>
   );
