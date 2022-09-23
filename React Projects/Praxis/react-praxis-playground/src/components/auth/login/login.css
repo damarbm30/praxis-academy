@@ -16,9 +16,67 @@
   transform: translate(-50%, -50%);
 }
 
-.login-button-wrapper {
+.login__footer {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem auto 0 auto;
+}
+
+.login__button {
+  text-align: center;
   display: flex;
   justify-content: center;
   flex-direction: column;
+  margin: 0 auto 0.5rem auto;
   gap: 2em;
+  padding: 0.5em 2em;
+  border: 2px solid black;
+  color: black;
+  border-radius: 12px;
+  background-color: #fff;
+}
+
+.login__button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.login__loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 auto;
+  font-size: 1.5rem;
+}
+
+.notification {
+  padding: 0.5em 1.5em;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  border-radius: 6px;
+  box-shadow: 2px 2px 4px 1px #888888;
+}
+
+.notification__message {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 0;
+  font-size: 1.1rem;
+  text-transform: lowercase;
+}
+
+.notification__message::first-letter {
+  text-transform: uppercase;
+}
+
+.notification__button {
+  color: black;
+}
+
+.hide {
+  position: absolute;
+  left: -9999px;
 }

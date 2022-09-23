@@ -1,51 +1,37 @@
 import React from "react";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { userLogin } from "../../../_services";
 import "./login.css";
+import LoginForm from "./LoginForm";
+import Notification from "./Notification";
 
 const Login = () => {
-  const navigate = useNavigate();
   const [userCredentials, setUserCredentials] = useState({ user: "", password: "" });
+  const [errMsg, setErrMsg] = useState("Error");
+  const [isSent, setIsSent, showNotification, setShowNotification] = useOutletContext();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const toggleShow = () => {
+    setShowNotification(false);
+  };
 
   return (
     <section className="login__container">
-      <form
-        className="login__wrapper"
-        onSubmit={(e) => {
-          e.preventDefault();
-        }}
-      >
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          size={20}
-          placeholder="Input username or email"
-          value={userCredentials.user}
-          onChange={(e) => {
-            setUserCredentials({ ...userCredentials, user: e.target.value });
-          }}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          placeholder="Input password"
-          value={userCredentials.password}
-          onChange={(e) => {
-            setUserCredentials({ ...userCredentials, password: e.target.value });
-          }}
-        />
-        <div className="login__button__wrapper">
-          <button
-            onClick={() => {
-              userLogin(userCredentials, navigate);
-            }}
-          >
-            Login
-          </button>
-          <Link to={"/register"}>Don't have an account?</Link>
-        </div>
-      </form>
+      <LoginForm
+        userCredentials={userCredentials}
+        setUserCredentials={setUserCredentials}
+        userLogin={userLogin}
+        isLoading={isLoading}
+        setIsLoading={setIsLoading}
+        setErrMsg={setErrMsg}
+        setShowNotification={setShowNotification}
+      />
+      {showNotification ? (
+        <Notification isSent={isSent} setIsSent={setIsSent} errMsg={errMsg} toggleShow={toggleShow} />
+      ) : (
+        ""
+      )}
     </section>
   );
 };
