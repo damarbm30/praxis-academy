@@ -13,6 +13,7 @@ const RegisterForm = ({
   setIsSent,
   isLoading,
   setIsLoading,
+  setShowNotification,
 }) => {
   const navigate = useNavigate();
 
@@ -68,7 +69,7 @@ const RegisterForm = ({
           type="submit"
           className="register__button"
           onClick={() => {
-            userRegistration(userCredentials, navigate, setIsSent, setIsLoading);
+            userRegistration(userCredentials, navigate, setIsSent, setIsLoading, setShowNotification);
           }}
           disabled={!isValid.email || !isValid.userName || !isValid.password || !isValid.matchPassword ? true : false}
         >
