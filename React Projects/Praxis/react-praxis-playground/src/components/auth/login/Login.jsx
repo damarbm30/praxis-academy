@@ -25,6 +25,7 @@ const Login = () => {
         isLoading={isLoading}
         setIsLoading={setIsLoading}
         setErrMsg={setErrMsg}
+        showNotification={showNotification}
         setShowNotification={setShowNotification}
       />
       {showNotification ? (

@@ -18,6 +18,12 @@
   border-radius: 12px;
 }
 
+.register__form input {
+  padding: 0.4em;
+  border-radius: 6px;
+  margin: 0.25rem 0;
+}
+
 .register__alert {
   display: flex;
   align-items: center;

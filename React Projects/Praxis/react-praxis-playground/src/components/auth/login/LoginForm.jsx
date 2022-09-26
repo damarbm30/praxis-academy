@@ -8,13 +8,14 @@ const LoginForm = ({
   isLoading,
   setIsLoading,
   setErrMsg,
+  showNotification,
   setShowNotification,
 }) => {
   const navigate = useNavigate();
 
   return (
     <form
-      className="login__wrapper"
+      className="login__form"
       onSubmit={(e) => {
         e.preventDefault();
       }}
@@ -43,7 +44,7 @@ const LoginForm = ({
           className="login__button"
           disabled={!userCredentials.user || !userCredentials.password ? true : false}
           onClick={() => {
-            userLogin(userCredentials, navigate, setIsLoading, setErrMsg, setShowNotification);
+            userLogin(userCredentials, navigate, setIsLoading, setErrMsg, showNotification, setShowNotification);
           }}
         >
           Login

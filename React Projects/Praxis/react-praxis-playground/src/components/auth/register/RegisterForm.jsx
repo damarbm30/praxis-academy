@@ -13,6 +13,7 @@ const RegisterForm = ({
   setIsSent,
   isLoading,
   setIsLoading,
+  showNotification,
   setShowNotification,
 }) => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const RegisterForm = ({
         size={30}
         type="text"
         value={userCredentials.userName}
+        placeholder={"Input username here"}
         required
         onChange={(e) => setUserCredentials({ ...userCredentials, userName: e.target.value })}
         onFocus={() => setFocus({ ...focus, userName: true })}
@@ -35,6 +37,7 @@ const RegisterForm = ({
         size={30}
         type="text"
         value={userCredentials.email}
+        placeholder={"Input email here"}
         required
         onChange={(e) => setUserCredentials({ ...userCredentials, email: e.target.value })}
         onFocus={() => setFocus({ ...focus, email: true })}
@@ -45,6 +48,7 @@ const RegisterForm = ({
         size={30}
         type="text"
         value={userCredentials.password}
+        placeholder={"Input password here"}
         required
         onChange={(e) => {
           setUserCredentials({ ...userCredentials, password: e.target.value });
@@ -57,6 +61,7 @@ const RegisterForm = ({
         size={30}
         type="text"
         value={userCredentials.matchPassword}
+        placeholder={"Input password confirmation here"}
         required
         onChange={(e) => {
           setUserCredentials({ ...userCredentials, matchPassword: e.target.value });
@@ -69,7 +74,7 @@ const RegisterForm = ({
           type="submit"
           className="register__button"
           onClick={() => {
-            userRegistration(userCredentials, navigate, setIsSent, setIsLoading, setShowNotification);
+            userRegistration(userCredentials, navigate, setIsSent, setIsLoading, showNotification, setShowNotification);
           }}
           disabled={!isValid.email || !isValid.userName || !isValid.password || !isValid.matchPassword ? true : false}
         >

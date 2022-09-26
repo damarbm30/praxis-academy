@@ -14,7 +14,7 @@ const Register = () => {
   const [isValid, setIsValid] = useState({ userName: false, email: false, password: false, matchPassword: false });
   const [focus, setFocus] = useState({ userName: false, email: false, password: false, matchPassword: false });
   const [isLoading, setIsLoading] = useState(false);
-  const [isSent, setIsSent, setShowNotification] = useOutletContext();
+  const [isSent, setIsSent, showNotification, setShowNotification] = useOutletContext();
 
   useEffect(() => {
     const result = USER_REGEX.test(userCredentials.userName);
@@ -57,6 +57,7 @@ const Register = () => {
         setIsSent={setIsSent}
         isLoading={isLoading}
         setIsLoading={setIsLoading}
+        showNotification={showNotification}
         setShowNotification={setShowNotification}
       />
     </section>
