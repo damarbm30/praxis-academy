@@ -29,7 +29,7 @@ export const userLogin = async (payload, navigate, setIsLoading, setErrMsg, show
     const results = await axios.post(`${BASE_PATH}/auth/user/login`, payload);
     const token = await axios.get(`${BASE_PATH}/auth/generate/accessToken`, {
       headers: {
-        Authorization: `Bearer ${results.data.refreshToken}`,
+        Authorization: `Bearer ${results.data.data.refreshToken}`,
       },
     });
 
@@ -38,7 +38,6 @@ export const userLogin = async (payload, navigate, setIsLoading, setErrMsg, show
       accessToken: token.data,
     };
 
-    console.log(results.data);
     localStorage.setItem("userCredentials", JSON.stringify(userCredentials));
     navigate("/home");
     setIsLoading(false);
