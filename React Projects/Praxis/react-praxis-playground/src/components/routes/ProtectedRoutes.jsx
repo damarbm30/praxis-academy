@@ -1,6 +1,7 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import { useIdleTimer } from "react-idle-timer";
 import { useRef } from "react";
+import { userLogout } from "../../_services/authService";
 
 const isAuth = () => {
   const user = localStorage.getItem("userCredentials");
@@ -13,19 +14,23 @@ const isAuth = () => {
 };
 
 const ProtectedRoutes = () => {
+  const navigate = useNavigate();
   const user = isAuth();
+  // eslint-disable-next-line
   const idleTimerRef = useRef(null);
 
   const handleIdle = () => {
-    console.log("User is idle");
+    userLogout(navigate);
+    alert("You'll be logged out for being idle for too long");
   };
 
+  // eslint-disable-next-line
   const idleTimer = useIdleTimer({
-    timeout: 5 * 1000,
+    timeout: 5 * 1000 * 60,
     onIdle: handleIdle,
   });
 
-  return user ? <Outlet /> : <Navigate to={"/login"} replace />;
+  return user ? <Outlet onIdle={handleIdle} /> : <Navigate to={"/login"} replace />;
 };
 
 export default ProtectedRoutes;
