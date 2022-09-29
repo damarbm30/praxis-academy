@@ -34,8 +34,8 @@ export const userLogin = async (payload, navigate, setIsLoading, setErrMsg, show
     });
 
     const userCredentials = {
-      ...results.data,
-      accessToken: token.data,
+      ...results.data.data,
+      accessToken: token.data.data,
     };
 
     localStorage.setItem("userCredentials", JSON.stringify(userCredentials));
