@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const BASE_PATH = "https://nodejs-backend-api-playground.herokuapp.com";
+export const BASE_PATH = "https://nodejs-backend-api-playground.herokuapp.com";
 
 export const userRegistration = async (
   payload,
@@ -41,6 +41,8 @@ export const userLogin = async (payload, navigate, setIsLoading, setErrMsg, show
     localStorage.setItem("userCredentials", JSON.stringify(userCredentials));
     navigate("/home");
     setIsLoading(false);
+
+    getToken();
   } catch (error) {
     if (error.response?.status === 503) {
       setErrMsg("Service not available 503");
@@ -54,4 +56,21 @@ export const userLogin = async (payload, navigate, setIsLoading, setErrMsg, show
 export const userLogout = (navigate) => {
   localStorage.removeItem("userCredentials");
   navigate("/login");
+};
+
+export const getToken = async () => {
+  try {
+    const userCredentials = JSON.parse(localStorage.getItem("userCredentials"));
+    const token = await axios.get(`${BASE_PATH}/auth/generate/accessToken`, {
+      headers: {
+        Authorization: `Bearer ${userCredentials.refreshToken}`,
+      },
+    });
+
+    return token.data.status;
+  } catch (error) {
+    if (error.response.status === 400) {
+      return error.response.status;
+    }
+  }
 };
