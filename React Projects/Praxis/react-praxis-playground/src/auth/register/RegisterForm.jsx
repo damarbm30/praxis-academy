@@ -1,26 +1,47 @@
 import { Spin } from "antd";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import RegisterAlert from "./RegisterAlert";
+import { userRegistration } from "../../_services";
 
-const RegisterForm = ({
-  userRegistration,
-  userCredentials,
-  setUserCredentials,
-  isValid,
-  focus,
-  setFocus,
-  isSent,
-  setIsSent,
-  isLoading,
-  setIsLoading,
-  showNotification,
-  setShowNotification,
-}) => {
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,}$/;
+const EMAIL_REGEX = /^[a-z0-9]+@[a-z]+\.[a-z]{3}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[*!@#$%]).{8,24}$/;
+
+const RegisterForm = ({ setIsSent, showNotification, setShowNotification }) => {
   const navigate = useNavigate();
+
+  const [userCredentials, setUserCredentials] = useState({ userName: "", email: "", password: "", matchPassword: "" });
+  const [valid, setValid] = useState({ userName: false, email: false, password: false, matchPassword: false });
+  const [focus, setFocus] = useState({ userName: false, email: false, password: false, matchPassword: false });
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const result = USER_REGEX.test(userCredentials.userName);
+    setValid((prevState) => ({ ...prevState, userName: result }));
+  }, [userCredentials.userName]);
+
+  useEffect(() => {
+    const result = EMAIL_REGEX.test(userCredentials.email);
+    setValid((prevState) => ({ ...prevState, email: result }));
+  }, [userCredentials.email]);
+
+  useEffect(() => {
+    const result = PWD_REGEX.test(userCredentials.password);
+    setValid((prevState) => ({ ...prevState, password: result }));
+  }, [userCredentials.password]);
+
+  useEffect(() => {
+    let match = false;
+    if (userCredentials.matchPassword === userCredentials.password && userCredentials.matchPassword !== "") {
+      match = true;
+    }
+    setValid((prevState) => ({ ...prevState, matchPassword: match }));
+  }, [userCredentials.matchPassword, userCredentials.password]);
 
   return (
     <form className="register__form" onSubmit={(e) => e.preventDefault()}>
-      <RegisterAlert isValid={isValid} focus={focus} />
+      <RegisterAlert valid={valid} focus={focus} />
       <label htmlFor="username">Username</label>
       <input
         size={30}
@@ -76,7 +97,7 @@ const RegisterForm = ({
           onClick={() => {
             userRegistration(userCredentials, navigate, setIsSent, setIsLoading, showNotification, setShowNotification);
           }}
-          disabled={!isValid.email || !isValid.userName || !isValid.password || !isValid.matchPassword ? true : false}
+          disabled={!valid.email || !valid.userName || !valid.password || !valid.matchPassword ? true : false}
         >
           Register
         </button>

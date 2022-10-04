@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { userLogout } from "../../../_services";
+import { userLogout } from "../../_services";
 import "./home.css";
 
 const Home = () => {

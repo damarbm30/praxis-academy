@@ -1,7 +1,7 @@
 // eslint-disable-next-line
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import PageLayout from "../layout/PageLayout";
-import Home from "../contents/home/Home";
+import PageLayout from "../components/PageLayout";
+import Home from "../contents/home";
 import PageContent2 from "../contents/PageContent2";
 import PageContent4 from "../contents/PageContent4";
 import PageContent3 from "../contents/PageContent3";

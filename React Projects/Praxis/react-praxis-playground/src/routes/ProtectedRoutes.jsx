@@ -1,7 +1,7 @@
 import { Outlet, Navigate, useNavigate } from "react-router-dom";
 import { useIdleTimer } from "react-idle-timer";
 import { useRef } from "react";
-import { userLogout } from "../../_services/authService";
+import { getToken, userLogout } from "../_services";
 
 const isAuth = () => {
   const user = localStorage.getItem("userCredentials");
@@ -19,14 +19,17 @@ const ProtectedRoutes = () => {
   // eslint-disable-next-line
   const idleTimerRef = useRef(null);
 
-  const handleIdle = () => {
-    userLogout(navigate);
-    alert("You'll be logged out for being idle for too long");
+  const handleIdle = async () => {
+    const response = await getToken();
+    if (response === 400) {
+      userLogout(navigate);
+      alert("You've been logged out due to another device trying to logging in");
+    }
   };
 
   // eslint-disable-next-line
   const idleTimer = useIdleTimer({
-    timeout: 5 * 1000 * 60,
+    timeout: 10 * 1000,
     onIdle: handleIdle,
   });
 

@@ -1,17 +1,13 @@
 import { Spin } from "antd";
 import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { userLogin } from "../../_services";
 
-const LoginForm = ({
-  userCredentials,
-  setUserCredentials,
-  userLogin,
-  isLoading,
-  setIsLoading,
-  setErrMsg,
-  showNotification,
-  setShowNotification,
-}) => {
+const LoginForm = ({ setErrMsg, showNotification, setShowNotification }) => {
   const navigate = useNavigate();
+
+  const [userCredentials, setUserCredentials] = useState({ user: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false);
 
   return (
     <form
@@ -46,6 +42,7 @@ const LoginForm = ({
           onClick={() => {
             userLogin(userCredentials, navigate, setIsLoading, setErrMsg, showNotification, setShowNotification);
           }}
+          type="button"
         >
           Login
         </button>
