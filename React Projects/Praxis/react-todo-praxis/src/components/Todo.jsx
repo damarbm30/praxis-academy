@@ -1,14 +1,21 @@
-import { useState } from "react";
-import { Button, Space, Table, Modal, Input, Form } from "antd";
-import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
+import { useEffect, useState } from "react";
+import { Button, Space, Table, Modal } from "antd";
+import { DeleteOutlined, EditOutlined, FileSearchOutlined } from "@ant-design/icons";
 
-const { TextArea } = Input;
+import { EditTodo, NewTodo } from "../components";
+import { deleteTodo } from "../services/services";
+import { todoList } from "../utils/dummy";
 
 const Todo = () => {
-  const [isModal, setIsModal] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [isEditing, setIsEditing] = useState(false);
+  const [isDetail, setIsDetail] = useState(false);
+
   const [task, setTask] = useState({ title: "", description: "" });
-  const [editTask, setEditTask] = useState("");
-  const [dataSource, setDataSource] = useState([]);
+  const [editTask, setEditTask] = useState(null);
+
+  const [todos, setTodos] = useState([]);
+  const [recordData, setRecordData] = useState([]);
 
   const columns = [
     {
@@ -26,86 +33,109 @@ const Todo = () => {
       width: "fit-content",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      key: "3",
-      align: "center",
-      width: "fit-content",
-    },
-    {
       title: "Action",
-      key: "4",
-      render: (record) => (
-        <Space size={"middle"}>
-          <EditOutlined onClick={() => handleEditTask(record)} style={{ fontSize: "16px" }} />
-          <DeleteOutlined onClick={""} style={{ color: "red", fontSize: "16px" }} />
-        </Space>
-      ),
+      dataIndex: "action",
+      key: "3",
+      render: (record) => {
+        return (
+          <Space size={"middle"}>
+            <FileSearchOutlined onClick={() => handleTaskDetail()} />
+            <EditOutlined onClick={() => handleEditTask(record)} />
+            <DeleteOutlined onClick={() => handleDeleteTask()} style={{ color: "red" }} />
+          </Space>
+        );
+      },
       align: "center",
-      width: "fit-content",
+      width: "20%",
     },
   ];
 
   const handleOpenModal = () => {
-    setIsModal(true);
+    setIsAdding(true);
   };
 
   const handleCloseModal = () => {
-    setIsModal(false);
+    setIsAdding(false);
+    setIsDetail(false);
   };
 
-  const handleAddTask = () => {
-    setTask("");
-
-    const newTask = {
-      id: dataSource.length ? dataSource[dataSource.length - 1].id + 1 : 1,
-      key: dataSource.length ? dataSource[dataSource.length - 1].key + 1 : 1,
-      title: task.title,
-      description: task.description,
-    };
-
-    setDataSource((prevState) => [...prevState, newTask]);
-    handleCloseModal();
+  const handleTaskDetail = () => {
+    setIsDetail(true);
   };
 
-  const handleDeleteTask = (record) => {};
-
-  const handleEditTask = (record) => {
-    setIsModal(true);
-    setEditTask(...record);
+  const handleDeleteTask = () => {
+    Modal.confirm({
+      title: "Are you sure, you want to delete this task?",
+      okText: "Yes",
+      okType: "danger",
+      onOk: () => {
+        deleteTodo(recordData.id);
+        setTodos((prevState) => {
+          return prevState.filter((todo) => todo.id !== recordData.id);
+        });
+      },
+    });
   };
+
+  const handleEditTask = () => {
+    setIsEditing(true);
+
+    setEditTask({ ...recordData });
+  };
+
+  useEffect(() => {
+    // getTodos(todos, setTodos);
+    // deleteTodo(5);
+    // addTodoDummy();
+    // updateTodoDummy();
+  }, [todos, todoList]);
 
   return (
-    <main className="Todo">
-      <header className="Todo__header">
+    <main className="todo">
+      <header className="todo__header">
         <Modal
-          title="Task"
-          okText="Submit"
-          open={isModal}
+          title="Task Detail"
+          okText="Ok"
+          open={isDetail}
           onCancel={handleCloseModal}
-          onOk={handleAddTask}
+          onOk={handleCloseModal}
           transitionName=""
         >
-          <Form>
-            <Space direction="vertical" size="middle" style={{ display: "flex" }}>
-              <Input
-                placeholder="Title"
-                onChange={(e) => setTask({ ...task, title: e.target.value })}
-                value={task.title}
-              />
-              <TextArea
-                placeholder="Description"
-                rows={4}
-                onChange={(e) => setTask({ ...task, description: e.target.value })}
-                value={task.description}
-              />
-            </Space>
-          </Form>
+          <p>Title: {recordData.title}</p>
+          <p>Description: {recordData.description}</p>
         </Modal>
+        <NewTodo
+          todos={todos}
+          setTodos={setTodos}
+          task={task}
+          setTask={setTask}
+          isAdding={isAdding}
+          handleCloseModal={handleCloseModal}
+        />
+        <EditTodo
+          editTask={editTask}
+          setEditTask={setEditTask}
+          isEditing={isEditing}
+          setIsEditing={setIsEditing}
+          setTodos={setTodos}
+        />
         <Button onClick={handleOpenModal} type="primary" style={{ marginBottom: "2rem" }}>
           Add new task
         </Button>
-        <Table bordered columns={columns} dataSource={dataSource} style={{ width: "80%", margin: "0 auto" }} />
+        <Table
+          bordered
+          columns={columns}
+          dataSource={todos}
+          style={{ width: "80%", margin: "0 auto" }}
+          onRow={(record) => {
+            return {
+              onMouseEnter: () => {
+                setRecordData(record);
+                console.log(recordData);
+              },
+            };
+          }}
+        />
       </header>
     </main>
   );
