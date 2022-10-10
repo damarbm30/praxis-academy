@@ -29,6 +29,7 @@ function App() {
         const response = await api.get("/posts");
         if (response && response.data) {
           setPosts(response.data);
+          console.log("Response: ", response.data);
         }
       } catch (err) {
         if (err.response) {
@@ -62,7 +63,9 @@ function App() {
     try {
       const response = await api.post("/posts", newPost);
       const allPosts = [...posts, response.data];
+      console.log(response);
       setPosts(allPosts);
+      console.log("allPosts: ", allPosts);
       setPostTitle("");
       setPostBody("");
       navigate("/");
