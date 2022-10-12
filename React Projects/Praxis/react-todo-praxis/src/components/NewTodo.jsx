@@ -1,4 +1,5 @@
 import { Space, Modal, Input, Form } from "antd";
+import { useEffect } from "react";
 import { createTodo } from "../services/services";
 
 const { TextArea } = Input;
@@ -7,17 +8,20 @@ const NewTodo = ({ todos, setTodos, task, setTask, isAdding, handleCloseModal })
   const handleAddTask = () => {
     setTask("");
 
+    // const id = todos.length ? todos[todos.length - 1].id + 1 : 1;
+
     const newTask = {
-      id: todos.length ? todos[todos.length - 1].id + 1 : 1,
-      key: todos.length ? todos[todos.length - 1].key + 1 : 1,
       title: task.title,
       description: task.description,
     };
 
-    createTodo(newTask, setTodos);
-    // setTodos((prevState) => [...prevState, newTask]);
+    createTodo(newTask, todos, setTodos);
     handleCloseModal();
   };
+
+  useEffect(() => {
+    localStorage.setItem("Todos", JSON.stringify(todos));
+  }, [todos]);
 
   return (
     <Modal

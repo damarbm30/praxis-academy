@@ -1,4 +1,5 @@
 import { Space, Modal, Input, Form } from "antd";
+import { updateTodo } from "../services/services";
 
 const { TextArea } = Input;
 
@@ -14,13 +15,7 @@ const TodoEdit = ({ editTask, setEditTask, isEditing, setIsEditing, setTodos }) 
       open={isEditing}
       onCancel={handleFinishEdit}
       onOk={() => {
-        // without map method, the old todo will be included
-        setTodos((prevStat) => {
-          // map every todo in todos, check if the mapped todo id is the same with the one we are editing
-          // if true, then replace it with the new todo, else, leave it be
-          return prevStat.map((task) => (task.id === editTask.id ? editTask : task));
-        });
-        handleFinishEdit();
+        updateTodo(editTask, setTodos, handleFinishEdit);
       }}
       transitionName=""
     >
